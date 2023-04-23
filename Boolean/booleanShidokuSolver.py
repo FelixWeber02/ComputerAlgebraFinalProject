@@ -22,10 +22,9 @@ for i in range(4):
             var = f'{l + str(i) + str(j)}'
             var_poly += var + "+"
             varstring += f'{var},'
-            if problem[i][j] == "0":
-                polys.append(f'{var} * ({var} - 1)')
-            else:
-                polys.append(f'{varnames[int(problem[i][j]) - 1] + str(i) + str(j)} - 1')
+            polys.append(f'{var} * ({var} - 1)')
+        if problem[i][j] != 0:
+            polys.append(f'{varnames[int(problem[i][j]) - 1] + str(i) + str(j)} - 1')
         var_poly = var_poly[:len(var_poly) - 1] + "-1"
         polys.append(var_poly)
 
