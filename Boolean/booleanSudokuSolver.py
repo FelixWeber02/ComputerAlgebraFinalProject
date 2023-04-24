@@ -23,7 +23,7 @@ for i in range(9):
             var_poly += var + "+"
             varstring += f'{var},'
             polys.append(f'{var} * ({var} - 1)')
-        if problem[i][j] != 0:
+        if problem[i][j] != "0":
             polys.append(f'{varnames[int(problem[i][j]) - 1] + str(i) + str(j)} - 1')
         var_poly = var_poly[:len(var_poly) - 1] + "-1"
         polys.append(var_poly)
@@ -62,12 +62,10 @@ for i in range(1,8,3):
             box_poly = box_poly[:len(box_poly) - 1] + "-1"
             polys.append(box_poly)
 
-pp.pprint(polys[len(polys) - 9:])
-
 # Write the output to a file
-result_string = 'Expand[{' + ",".join(polys) + '}]'
+result_string = 'Union[Simplify[Expand[{' + ",".join(polys) + '}]]]'
 
 with open("booleanSudokupyOutput.txt", "w") as f:
     f.write(result_string)
 
-# pp.pprint(varstring)
+pp.pprint(varstring)
