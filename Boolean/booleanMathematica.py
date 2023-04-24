@@ -1,5 +1,5 @@
 from wolframclient.evaluation import WolframLanguageSession
-from wolframclient.language import wl, wlexpr
+from wolframclient.language import wlexpr
 from itertools import product
 import pprint
 import math
@@ -127,11 +127,19 @@ def writeOutput(real_sol):
             f.write(",".join(row) + ",\n")
         f.close()
 
+def solveGUI(problem):
+    polys, varstring = generate_polys(problem)
+    session = WolframLanguageSession()
+    sol = session.evaluate(wlexpr(f'Solve[GroebnerBasis[{"{" + ",".join(polys) + "}"}, {"{" + varstring + "}"}] == 0]'))
+    session.terminate()
+    real_sol = translate_solution(sol)
+    return real_sol
+
 
 if __name__ == "__main__":
-    session = WolframLanguageSession()
     problem = read_problem()
     polys, varstring = generate_polys(problem)
+    session = WolframLanguageSession()
     sol = session.evaluate(wlexpr(f'Solve[GroebnerBasis[{"{" + ",".join(polys) + "}"}, {"{" + varstring + "}"}] == 0]'))
     session.terminate()
     real_sol = translate_solution(sol)
