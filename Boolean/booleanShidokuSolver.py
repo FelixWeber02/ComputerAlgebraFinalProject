@@ -13,6 +13,7 @@ with open("../SampleProblems/sampleShidoku.csv") as f:
     for i in range(4):
         problem.append(f.readline().split(",")[:4])
 
+problem = [["0" for i in range(4)] for j in range(4)]
 # Make a list of variables
 varstring = ""
 for i in range(4):

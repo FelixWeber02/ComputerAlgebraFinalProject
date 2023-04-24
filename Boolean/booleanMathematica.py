@@ -82,7 +82,7 @@ def generate_col_polys(problem, size):
             polys.append(col_poly)
     return polys
 
-def generate_box_polys(problem, size):
+def generate_box_polys(size):
     polys = []
     box_incs = [(0,0), (1, 0), (0,1), (1,1)]
     startVal = 0
@@ -92,8 +92,8 @@ def generate_box_polys(problem, size):
         box_incs = list(product(x_incs, y_incs))
         startVal = 1
     # Make sure all vars in the same section have different values
-    for i in range(startVal,size - 1,math.sqrt(size)):
-        for j in range(startVal, size - 1, math.sqrt(size)):
+    for i in range(startVal,size - 1,int(math.sqrt(size))):
+        for j in range(startVal, size - 1, int(math.sqrt(size))):
             for l in varnames[size]:
                 box_poly = ""
                 for x_inc, y_inc in box_incs:
@@ -107,7 +107,7 @@ def generate_polys(problem, size=4):
     varstring, polys = generate_var_polys(problem, size)
     polys += generate_row_polys(problem, size)
     polys += generate_col_polys(problem, size)
-    polys += generate_box_polys(problem, size)
+    polys += generate_box_polys(size)
     return polys, varstring
 
 
