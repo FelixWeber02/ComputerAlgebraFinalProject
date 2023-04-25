@@ -10,6 +10,10 @@ from booleanMathematica import solveGUI
 
 pp = pprint.PrettyPrinter(indent=1)
 
+methodMap = {
+    "Boolean": solveGUI
+}
+
 
 class MyApp(ttk.Frame):
     def __init__(self, master=None):
@@ -31,9 +35,13 @@ class MyApp(ttk.Frame):
         self.grid_4x4()
         self.grid_9x9()
 
-        # Create a label to show the time taken to solve the matrix
-        self.time_label = tk.Label(self.master, text="Time taken: ")
-        self.time_label.pack(side="bottom")
+        self.bottom_frame = ttk.Frame(self.master)
+        self.bottom_frame.pack(side="bottom", fill="x")
+
+        self.time_label = ttk.Label(self.bottom_frame, text="Time taken: ")
+        self.time_label.pack(side="left", padx=5)
+
+        self.method_selection_menu()
 
     def grid_4x4(self):
         for i in range(4):
@@ -73,7 +81,7 @@ class MyApp(ttk.Frame):
         pp.pprint(values)
         # Call the solve function with the matrix as an argument
         start_time = time.time()
-        sol = solveGUI(values)
+        sol = methodMap[self.dropdown_var.get()](values)
         elapsed_time = time.time() - start_time
         pp.pprint(sol)
         for i in range(4):
@@ -100,13 +108,27 @@ class MyApp(ttk.Frame):
         pp.pprint(values)
         # Call the solve function with the matrix as an argument
         start_time = time.time()
-        sol = solveGUI(values)
+        sol = methodMap[self.dropdown_var.get()](values)
         elapsed_time = time.time() - start_time
         pp.pprint(sol)
         for i in range(9):
             for j in range(9):
                 self.tab2.grid_slaves(row=i, column=j)[0].delete(0, tk.END)
                 self.tab2.grid_slaves(row=i, column=j)[0].insert(0, sol[i][j])
+                
+        # Update the time label to show the time taken to solve the matrix
+        self.time_label.config(text="Time taken: {:.3f} seconds".format(elapsed_time))
+
+    def method_selection_menu(self):
+        self.dropdown_frame = ttk.Frame(self.bottom_frame)
+        self.dropdown_frame.pack(side="right", padx=5)
+
+        self.options = ['Method', 'Boolean', 'Sum-Product', 'Roots of Unity', 'Quotient']
+        self.dropdown_var = tk.StringVar(self.dropdown_frame)
+        self.dropdown_var.set(self.options[0])
+
+        self.dropdown_menu = ttk.OptionMenu(self.dropdown_frame, self.dropdown_var, *self.options)
+        self.dropdown_menu.pack(side="right", padx=5)
 
 
 root = tk.Tk()
