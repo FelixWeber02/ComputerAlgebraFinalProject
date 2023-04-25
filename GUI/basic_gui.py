@@ -9,12 +9,6 @@ from booleanMathematica import solveGUI
 pp = pprint.PrettyPrinter(indent=1)
 
 # Define the function to be called when the user clicks "Submit"
-def solve(matrix):
-    # Do something with the matrix (for example, print it)
-    for row in matrix:
-        print(row)
-
-# Define the function to be called when the user clicks "Submit"
 def submit():
     # Get the values from the Entry widgets and store them in a 2D array
     matrix = []
@@ -40,7 +34,7 @@ def submit():
 
 # Create the main window
 root = tk.Tk()
-root.title("Matrix Input")
+root.title("Shidoku Solver")
 
 # Create a frame with a thicker margin on the left and right sides
 frame = tk.Frame(root, padx=50, pady=10)
