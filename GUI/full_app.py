@@ -23,6 +23,7 @@ class MyApp(ttk.Frame):
         self.master.title("Matrix Solver")
 
         self.tabControl = ttk.Notebook(self.master)
+        self.tabControl.bind("<<NotebookTabChanged>>", self.tab_changed)
 
         self.tab1 = ttk.Frame(self.tabControl)
         self.tabControl.add(self.tab1, text="4x4 Matrix")
@@ -115,7 +116,7 @@ class MyApp(ttk.Frame):
             for j in range(9):
                 self.tab2.grid_slaves(row=i, column=j)[0].delete(0, tk.END)
                 self.tab2.grid_slaves(row=i, column=j)[0].insert(0, sol[i][j])
-                
+
         # Update the time label to show the time taken to solve the matrix
         self.time_label.config(text="Time taken: {:.3f} seconds".format(elapsed_time))
 
@@ -130,6 +131,19 @@ class MyApp(ttk.Frame):
         self.dropdown_menu = ttk.OptionMenu(self.dropdown_frame, self.dropdown_var, *self.options)
         self.dropdown_menu.pack(side="right", padx=5)
 
+    def tab_changed(self, event):
+        current_tab = event.widget.nametowidget(event.widget.select())
+        if current_tab == self.tab2:
+            self.tab2_selected()
+        else:
+            self.tab1_selected()
+        
+    def tab1_selected(self):
+        print("Tab 2 selected")
+
+    def tab2_selected(self):
+        self.dropdown_menu['menu'].delete(0, 'end')
+        self.dropdown_menu['menu'].add_command(label="Quotient", command=tk._setit(self.dropdown_var, "Quotient"))
 
 root = tk.Tk()
 app = MyApp(root)
