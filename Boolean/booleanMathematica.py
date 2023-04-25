@@ -128,7 +128,8 @@ def writeOutput(real_sol):
         f.close()
 
 def solveGUI(problem):
-    polys, varstring = generate_polys(problem)
+    size = len(problem)
+    polys, varstring = generate_polys(problem, size)
     session = WolframLanguageSession()
     sol = session.evaluate(wlexpr(f'Solve[GroebnerBasis[{"{" + ",".join(polys) + "}"}, {"{" + varstring + "}"}] == 0]'))
     session.terminate()

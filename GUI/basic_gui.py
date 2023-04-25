@@ -1,12 +1,17 @@
 import tkinter as tk
 import sys
 import pprint
+import time
 
 sys.path.append("../Boolean")
 
 from booleanMathematica import solveGUI
 
 pp = pprint.PrettyPrinter(indent=1)
+
+# Create the main window
+root = tk.Tk()
+root.title("Shidoku Solver")
 
 # Define the function to be called when the user clicks "Submit"
 def submit():
@@ -24,17 +29,15 @@ def submit():
 
     pp.pprint(matrix)
     # Call the solve function with the matrix as an argument
+    start_time = time.time()
     sol = solveGUI(matrix)
+    elapsed_time = time.time() - start_time
     pp.pprint(sol)
-
     for i in range(4):
         for j in range(4):
             matrix_entries[i][j].delete(0, tk.END)
             matrix_entries[i][j].insert(0, sol[i][j])
 
-# Create the main window
-root = tk.Tk()
-root.title("Shidoku Solver")
 
 # Create a frame with a thicker margin on the left and right sides
 frame = tk.Frame(root, padx=50, pady=10)
