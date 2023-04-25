@@ -15,7 +15,7 @@ class MyApp(ttk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.master.geometry("500x500")
+        self.master.geometry("500x600")
         self.master.title("Matrix Solver")
 
         self.tabControl = ttk.Notebook(self.master)
@@ -31,12 +31,16 @@ class MyApp(ttk.Frame):
         self.grid_4x4()
         self.grid_9x9()
 
+        # Create a label to show the time taken to solve the matrix
+        self.time_label = tk.Label(self.master, text="Time taken: ")
+        self.time_label.pack(side="bottom")
+
     def grid_4x4(self):
         for i in range(4):
             self.tab1.columnconfigure(i, weight=1, uniform='c')
             self.tab1.rowconfigure(i, weight=1, uniform='r')
             for j in range(4):
-                cell = tk.Entry(self.tab1, width=10, font=("Arial", 20))
+                cell = tk.Entry(self.tab1, width=10, justify='center', font=("Arial", 20))
                 cell.grid(row=i, column=j, padx=5, pady=5, ipady=10, sticky="nsew")
 
         submit_button = tk.Button(self.tab1, text="Submit", command=self.solve_4x4)
@@ -47,7 +51,7 @@ class MyApp(ttk.Frame):
             self.tab2.columnconfigure(i, weight=1, uniform='c')
             self.tab2.rowconfigure(i, weight=1, uniform='r')
             for j in range(9):
-                cell = tk.Entry(self.tab2, width=6)
+                cell = tk.Entry(self.tab2, width=6, justify='center')
                 cell.grid(row=i, column=j, padx=5, pady=5, ipady=10, sticky="nsew")
 
         submit_button = tk.Button(self.tab2, text="Submit", command=self.solve_9x9)
@@ -76,6 +80,9 @@ class MyApp(ttk.Frame):
             for j in range(4):
                 self.tab1.grid_slaves(row=i, column=j)[0].delete(0, tk.END)
                 self.tab1.grid_slaves(row=i, column=j)[0].insert(0, sol[i][j])
+        
+        # Update the time label to show the time taken to solve the matrix
+        self.time_label.config(text="Time taken: {:.3f} seconds".format(elapsed_time))
 
     def solve_9x9(self):
         values = []
