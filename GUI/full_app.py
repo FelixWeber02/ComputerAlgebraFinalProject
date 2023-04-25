@@ -139,11 +139,16 @@ class MyApp(ttk.Frame):
             self.tab1_selected()
         
     def tab1_selected(self):
-        print("Tab 2 selected")
+        self.dropdown_menu['menu'].delete(0, 'end')
+        self.dropdown_menu['menu'].add_command(label="Quotient", command=tk._setit(self.dropdown_var, "Quotient"))
+        self.dropdown_menu['menu'].add_command(label="Boolean", command=tk._setit(self.dropdown_var, "Boolean"))
+        self.dropdown_menu['menu'].add_command(label="Sum-Product", command=tk._setit(self.dropdown_var, "Sum-Product"))
+        self.dropdown_menu['menu'].add_command(label="Roots of Unity", command=tk._setit(self.dropdown_var, "Roots of Unity"))
 
     def tab2_selected(self):
         self.dropdown_menu['menu'].delete(0, 'end')
         self.dropdown_menu['menu'].add_command(label="Quotient", command=tk._setit(self.dropdown_var, "Quotient"))
+        self.dropdown_var.set("Quotient")
 
 root = tk.Tk()
 app = MyApp(root)
