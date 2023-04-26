@@ -63,7 +63,7 @@ for i in range(1,8,3):
             polys.append(box_poly)
 
 # Write the output to a file
-result_string = 'Union[Simplify[Expand[{' + ",".join(polys) + '}]]]'
+result_string = 'GroebnerBasis[Union[Simplify[Expand[{' + ",".join(polys) + '}]]]]'
 
 with open("booleanSudokupyOutput.txt", "w") as f:
     f.write(result_string)
