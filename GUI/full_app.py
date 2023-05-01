@@ -8,6 +8,8 @@ sys.path.append("../Boolean")
 
 from booleanMathematica import solveGUI
 
+from SumProd4x4 import SP_Solve
+
 pp = pprint.PrettyPrinter(indent=1)
 
 methodMap = {
