@@ -10,11 +10,14 @@ from booleanMathematica import solveGUI
 
 from SumProd4x4 import SP_Solve
 
+from Roots4x4 import R_Solve
+
 pp = pprint.PrettyPrinter(indent=1)
 
 methodMap = {
     "Boolean": solveGUI,
-    'Sum-Product': SP_Solve
+    'Sum-Product': SP_Solve,
+    'Roots of Unity': R_Solve
 }
 
 
