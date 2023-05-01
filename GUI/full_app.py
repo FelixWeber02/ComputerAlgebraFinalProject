@@ -6,6 +6,8 @@ import time
 
 sys.path.append("../Boolean")
 
+sys.path.append("../")
+
 from booleanMathematica import solveGUI
 
 from SumProd4x4 import SP_Solve
