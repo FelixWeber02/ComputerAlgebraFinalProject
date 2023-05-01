@@ -13,7 +13,8 @@ from SumProd4x4 import SP_Solve
 pp = pprint.PrettyPrinter(indent=1)
 
 methodMap = {
-    "Boolean": solveGUI
+    "Boolean": solveGUI,
+    'Sum-Product': SP_Solve
 }
 
 
